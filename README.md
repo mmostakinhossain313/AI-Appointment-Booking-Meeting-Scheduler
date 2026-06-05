@@ -24,9 +24,6 @@ Reduce manual work, improve client experience, and create a professional appoint
 
 # Workflow Overview
 
-![Workflow Overview](screenshot/workflow-screenshot.png)
-
-
 This workflow follows the process below:
 
 ```text
