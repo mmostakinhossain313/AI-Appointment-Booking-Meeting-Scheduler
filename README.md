@@ -1,6 +1,6 @@
 # Workflow 02: AI Appointment Booking & Meeting Scheduler
 
-![Workflow Overview](screenshots/workflow-overview.png)
+![Workflow Overview](screenshot/workflow-screenshot.png)
 
 ---
 
@@ -24,7 +24,8 @@ Reduce manual work, improve client experience, and create a professional appoint
 
 # Workflow Overview
 
-![Workflow Overview](screenshots/workflow-overview.png)
+![Workflow Overview](screenshot/workflow-screenshot.png)
+
 
 This workflow follows the process below:
 
