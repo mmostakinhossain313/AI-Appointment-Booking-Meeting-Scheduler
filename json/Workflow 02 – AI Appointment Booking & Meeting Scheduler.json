@@ -1,0 +1,214 @@
+{
+  "name": "Workflow 02 – AI Appointment Booking & Meeting Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "10acicB9tWDgTgDssZxvoIBB3xqlHBWXRcMlO2lztO9g",
+          "mode": "list",
+          "cachedResultName": "Book a Free Consultation (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10acicB9tWDgTgDssZxvoIBB3xqlHBWXRcMlO2lztO9g/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 241608393,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10acicB9tWDgTgDssZxvoIBB3xqlHBWXRcMlO2lztO9g/edit#gid=241608393"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        16
+      ],
+      "id": "c8a4a543-0ec2-4e81-9842-023c2bb48262",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "oWLZtsTXLWr3PNY2",
+          "name": "Google Sheets Trigger OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Meeting Request Received",
+        "message": "=Hello {{ $json[\"Full Name\"] }},\n\nThank you for booking a consultation.\n\nPreferred Date: {{ $json[\"Preferred Date\"] }}\n\nPreferred Time: {{ $json[\"Preferred Time\"] }}\n\nMeeting Type: {{ $json[\"Meeting Type\"] }}\n\nWe will confirm your meeting shortly.\n\nBest Regards",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        128
+      ],
+      "id": "6759f427-12ce-4e50-9163-6ed3b90dda15",
+      "name": "Send a message",
+      "webhookId": "e1ccaacb-5693-4ccb-aac6-10210b83a32d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6stsBcdkO41pX8Kq",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "mostakinhossain89@gmail.com",
+          "mode": "list",
+          "cachedResultName": "mostakinhossain89@gmail.com"
+        },
+        "additionalFields": {
+          "description": "={{ \n'Client: ' + $json[\"Full Name\"] + '\\n\\n' +\n'Email: ' + $json[\"Email\"] + '\\n\\n' +\n'Meeting Type: ' + $json[\"Meeting Type\"] + '\\n\\n' +\n'Project Details: ' + $json[\"Project Details\"]\n}}",
+          "summary": "={{ 'Consultation Call - ' + $json[\"Full Name\"] }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -48,
+        -64
+      ],
+      "id": "f02d9fff-cd63-4e11-9631-f0b8b69583b1",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "lTlEQXFSBNdwTrk9",
+          "name": "Google Calendar OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0cd2c2b1-aa18-4d7b-9986-e6a4a7107672",
+              "leftValue": "={{ $('Google Sheets Trigger').item.json[\"Meeting Type\"] }}",
+              "rightValue": "Strategy Session",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -288,
+        16
+      ],
+      "id": "39b48f6b-6420-4b8d-a4fd-9952d99ff770",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Google Sheets Trigger').item.json[\"Email\"] }}",
+        "subject": "Meeting Confirmed - Strategy Session",
+        "message": "=Hello {{ $('Google Sheets Trigger').item.json[\"Full Name\"] }},\n\nThank you for booking a Strategy Session.\n\nYour meeting has been successfully scheduled and added to our calendar.\n\nMeeting Type: {{ $('Google Sheets Trigger').item.json[\"Meeting Type\"] }}\n\nPreferred Date: {{ $('Google Sheets Trigger').item.json[\"Preferred Date\"] }}\n\nPreferred Time: {{ $('Google Sheets Trigger').item.json[\"Preferred Time\"] }}\n\nWe look forward to speaking with you.\n\nBest Regards\nAI Automation Team\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        -80
+      ],
+      "id": "ae8eb166-77c5-4abe-87e7-259e243ef484",
+      "name": "Send a message1",
+      "webhookId": "e1ccaacb-5693-4ccb-aac6-10210b83a32d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6stsBcdkO41pX8Kq",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "Create an event": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "cfc4c485-308d-4a48-b11c-a3aacd212dfe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f2f23a593b5262fad10e7ebf366e5500ddfd99f99fc69ff6bdb831511c19c666"
+  },
+  "id": "ER7gs4GyIhO1EC5g",
+  "tags": []
+}
