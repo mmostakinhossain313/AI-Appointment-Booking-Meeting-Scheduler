@@ -1,0 +1,17 @@
+# Episode 02 – Automated Email Confirmation
+
+After creating the meeting request form and connecting it to Google Sheets, the next step was to automate client communication.
+
+One of the most common problems in service-based businesses is delayed responses. A client submits a request, but they often have no idea whether the request was received or not. This creates uncertainty and can make the business appear less professional.
+
+To address this issue, I connected Google Sheets to n8n using the Google Sheets Trigger node. This allowed the workflow to react automatically whenever a new meeting request was submitted.
+
+Once a new row is added to the spreadsheet, the workflow immediately captures the client's information and sends a confirmation email automatically.
+
+The purpose of this email is not just to acknowledge the submission. It also reassures the client that their request has been received successfully and is being processed.
+
+From a business perspective, this small automation creates a much better client experience. Instead of waiting for a manual response, clients receive instant confirmation within seconds.
+
+This episode also introduced dynamic data handling inside n8n. Client information such as name, email address, meeting type, preferred date, and preferred time were pulled directly from the spreadsheet and inserted into personalized email messages.
+
+By the end of this episode, every new meeting request automatically triggered a professional confirmation email without requiring any manual effort.
