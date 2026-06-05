@@ -1,0 +1,21 @@
+# Episode 04 – Smart Meeting Routing with IF Logic
+
+At this stage, the workflow was already capable of collecting meeting requests, sending confirmation emails, and creating calendar events. However, every request was still being treated the same way.
+
+In real business environments, not every meeting request requires the same action. A strategy session, for example, may need to be scheduled immediately, while a discovery call might only require an acknowledgement email before further review.
+
+To make the workflow more intelligent, I introduced conditional logic using the IF node.
+
+The purpose of this step was to allow the workflow to make decisions automatically based on the meeting type selected by the client.
+
+When a client selects a Strategy Session, the workflow automatically creates a calendar event and sends a confirmation email. This ensures that high-priority consultations are scheduled immediately without requiring manual intervention.
+
+For other meeting types such as Discovery Calls, Project Discussions, or Support Calls, the workflow follows a different path and sends a confirmation email without creating a calendar event.
+
+This approach reflects how real businesses often operate. Different services require different processes, and automation should adapt accordingly.
+
+One of the most valuable lessons from this episode was learning how to build decision-making logic inside n8n. Instead of creating a single linear workflow, I learned how to create multiple paths that respond differently based on client input.
+
+From a business perspective, this makes the system more flexible, scalable, and easier to maintain as additional meeting types or scheduling rules are introduced in the future.
+
+By the end of this episode, the workflow had evolved from a simple booking system into a smarter appointment management process capable of handling different client scenarios automatically.
