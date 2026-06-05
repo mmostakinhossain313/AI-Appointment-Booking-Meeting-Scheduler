@@ -1,0 +1,17 @@
+# Episode 03 – Automated Calendar Event Creation
+
+Once the confirmation email process was working, the next objective was to reduce the amount of manual scheduling work involved in managing client meetings.
+
+In many businesses, receiving a meeting request is only the first step. Someone still needs to open a calendar, create an event, add client information, and make sure the meeting is scheduled correctly. As the number of appointments increases, this repetitive process becomes time-consuming and prone to human error.
+
+To solve this problem, I integrated Google Calendar directly into the workflow.
+
+When a qualified meeting request reaches the scheduling stage, n8n automatically creates a calendar event without any manual intervention. The event includes important information collected from the client form, such as meeting type, preferred date, contact details, and project information.
+
+One important lesson from this episode was understanding how dynamic data moves between different nodes inside a workflow. I learned how to use expressions to pull information from previous steps and insert it into calendar events automatically.
+
+Another key benefit of this automation is consistency. Every meeting is created using the same structure, which helps keep scheduling organized and professional.
+
+From a business perspective, this removes a repetitive administrative task and allows more time to focus on client conversations instead of calendar management.
+
+By the end of this episode, the workflow was capable of creating calendar events automatically whenever a meeting reached the scheduling stage.
